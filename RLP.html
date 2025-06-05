@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TuneDrop – Where Melody Meets Magic</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: #0f0f0f;
+      color: #fff;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: transparent;
+      transition: background 0.3s, box-shadow 0.3s;
+      z-index: 1000;
+      padding: 20px 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header.scrolled {
+      background: linear-gradient(90deg, #7d9b94, #585e64);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 700;
+      color: #00ffc8;
+    }
+
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: #fff;
+      transition: color 0.3s;
+      position: relative;
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -5px;
+      width: 0;
+      height: 2px;
+      background: #00ffc8;
+      transition: width 0.3s;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    nav a:hover {
+      color: #00ffc8;
+    }
+
+    header.scrolled nav a {
+      color: #000;
+    }
+
+    header.scrolled nav a:hover {
+      color: #fff;
+    }
+
+    .parallax-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTwTCk2denvqZE0EME0F7LsALUod4W0zhg3A&s');
+      background-attachment: fixed;
+      background-size: cover;
+      background-position: center;
+      z-index: -2;
+      opacity: 0.2;
+      filter: blur(2px);
+    }
+
+    .music-notes {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+     
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      opacity: 0.1;
+      z-index: 1;
+      pointer-events: none;
+      animation: floatNotes 10s infinite linear;
+    }
+
+    @keyframes floatNotes {
+      from { background-position-y: 100%; }
+      to { background-position-y: 0%; }
+    }
+
+    .hero-section {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+     
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: -1;
+    }
+
+    .hero-content {
+      color: #ffffff;
+      animation: fadeInUp 1.5s ease-in-out;
+    }
+
+    .hero-logo {
+      width: 120px;
+      height: auto;
+      margin-bottom: 20px;
+      animation: zoomIn 1.2s ease-in-out;
+    }
+
+    .hero-title {
+      font-size: 4rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      color: #00ffc8;
+      margin: 0;
+      animation: slideInDown 1.5s ease-in-out;
+    }
+
+    .hero-tagline {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.8rem;
+      color: #fff;
+      margin-top: 10px;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideInDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes zoomIn {
+      from { opacity: 0; transform: scale(0.7); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    section {
+      padding: 80px 50px;
+      animation: fadeInUp 1s ease forwards;
+    }
+
+    .section-title {
+      font-size: 36px;
+      text-align: center;
+      color: #00ffc8;
+      margin-bottom: 40px;
+    }
+
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: center;
+    }
+
+    .feature-box {
+      background: #1e1e1e;
+      padding: 30px;
+      border-radius: 15px;
+      width: 280px;
+      text-align: center;
+      transition: transform 0.3s;
+    }
+
+    .feature-box:hover {
+      transform: translateY(-10px);
+      background: #292929;
+    }
+
+    .center-button {
+      display: flex;
+      justify-content: center;
+      margin-top: 30px;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .center-button button {
+      padding: 12px 25px;
+      background: #00ffc8;
+      border: none;
+      color: #000;
+      font-weight: bold;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .center-button button:hover {
+      background: #00c5a0;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      background: #111;
+      font-size: 14px;
+      color: #aaa;
+    }
+
+    @media (max-width: 768px) {
+      header {
+        padding: 15px 20px;
+      }
+
+      nav a {
+        margin: 0 10px;
+        font-size: 14px;
+      }
+
+      .hero-title {
+        font-size: 2.5rem;
+      }
+
+      .feature-box {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="parallax-bg"></div>
+
+  <header id="navbar">
+    <div class="logo">TuneDrop</div>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#services">Opportunities</a>
+      <a href="#join">Join</a>
+      <a href="#contact">Contact</a>
+      <a href="#events">Events</a>
+      <a href="#skills">Skills</a>
+      <a href="#overview">Overview</a>
+    </nav>
+  </header>
+
+  <section class="hero-section" id="home">
+    <div class="hero-content">
+      <img src="https://assets.streamlinehq.com/image/private/w_300,h_300,ar_1/f_auto/v1/icons/music/youtube-music-oj9eetvcmvsrrdo25njiob.png/youtube-music-vaebmntarunk7pmmsre29o.png?_a=DATAdtAAZAA0" alt="TuneDrop Logo" class="hero-logo" />
+      <h1 class="hero-title">TuneDrop</h1>
+      <p class="hero-tagline">Where melody meets magic</p>
+    </div>
+    <div class="music-notes"></div>
+  </section>
+
+  <section id="about">
+    <h2 class="section-title">About TuneDrop</h2>
+    <div class="features">
+      <div class="feature-box">🎤 Perform on stage and grow your audience</div>
+      <div class="feature-box">🎓 Learn from experienced musicians</div>
+      <div class="feature-box">📈 Take your career to the next level</div>
+    </div>
+    <div class="center-button">
+      <button>Explore</button>
+    </div>
+  </section>
+
+  <section id="services">
+    <h2 class="section-title">Opportunities</h2>
+    <div class="features">
+      <div class="feature-box">🎧 Collaborate with creators</div>
+      <div class="feature-box">📢 Get featured on our stage</div>
+      <div class="feature-box">💡 Attend exclusive workshops</div>
+    </div>
+  </section>
+
+
+  <section id="services">
+    <h2 class="section-title">Opportunities</h2>
+    <div class="text-row">
+      <p>🎶 Live shows & gigs – Step onto the stage and shine with your talent.</p>
+      <p>📹 Video sessions – Create high-quality performance content.</p>
+      <p>🎧 Music production – Collaborate and create studio-quality tracks.</p>
+    </div>
+    <div class="center-button">
+      <button>Discover Now</button>
+    </div>
+  </section>
+
+  <section id="join">
+    <h2 class="section-title">Join TuneDrop</h2>
+    <div class="features">
+      <div class="feature-box">📝 Sign up and showcase your talent</div>
+      <div class="feature-box">🤝 Collaborate with other artists</div>
+      <div class="feature-box">🌍 Share your music with the world</div>
+    </div>
+    <div class="center-button">
+      <button>Join</button>
+      <button>Sign Up</button>
+      <button>Sign In</button>
+    </div>
+  </section>
+
+  <section id="events">
+    <h2 class="section-title">Upcoming Events</h2>
+    <div class="features">
+      <div class="feature-box">
+        🎤 Monthly live performances <br><br>
+        <button>Book Now - $15</button>
+      </div>
+      <div class="feature-box">
+        🎧 Music workshops <br><br>
+        <button>Book Now - $10</button>
+      </div>
+      <div class="feature-box">
+        📹 Virtual concerts <br><br>
+        <button>Book Now - $8</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <h2 class="section-title">Skills</h2>
+    <div class="text-row">
+      <p>🎵 Songwriting: Learn how to turn thoughts and emotions into lyrical masterpieces.</p>
+      <p>🎸 Instrumental mastery: Practice and refine your abilities with expert guidance.</p>
+      <p>🎧 Music production: Get hands-on with tools and software used by professionals.</p>
+    </div>
+  </section>
+
+  <section id="overview">
+    <h2 class="section-title">Overview</h2>
+    <p style="text-align: center;">TuneDrop is designed for musicians who are ready to take their talent to the next level. Whether you're performing on stage, recording new tracks, or learning from experts, TuneDrop is your go-to platform.</p>
+  </section>
+
+  <section id="contact">
+    <h2 class="section-title">Contact Us</h2>
+    <p style="text-align: center;">Email: support@tunedrop.com | Phone: +1 234 567 890</p>
+  </section>
+
+  <footer>
+    &copy; 2025 TuneDrop. All rights reserved.
+  </footer>
+
+  <script>
+    window.addEventListener('scroll', function () {
+      const header = document.getElementById('navbar');
+      header.classList.toggle('scrolled', window.scrollY > 50);
+    });
+  </script>
+
+</body>
+</html>
